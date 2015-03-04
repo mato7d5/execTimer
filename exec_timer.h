@@ -75,7 +75,7 @@ namespace met {
             string mLabel;
 
         public:
-            explicit ExecTimerAuto(const string& name, const string& label) : mET(name), mLabel(label) 
+            ExecTimerAuto(const string& name, const string& label) : mET(name), mLabel(label) 
             {
                 mET.start(mLabel);
             }
