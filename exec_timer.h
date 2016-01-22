@@ -1,10 +1,9 @@
 /*
  * Name: ExecTimer
  * Version: 0.1
- * Description: measures execution time of code
- * License: GNU GPL
+ * Description: measures execution time of code. Required C++ 11 compiler at least.
+ * License: GNU GPL 2.1
  * Contact: borg@borg.sk
- *
  */
 
 #ifndef __EXEC_TIMER_H__
@@ -20,8 +19,10 @@ using std::map;
 using std::ofstream;
 
 namespace met {
+    /* Main class for measuring time of executed code */
     class ExecTimer {
         private:
+            /* begin and end points of measuring */
             struct StartEnd {
                 std::chrono::time_point<std::chrono::high_resolution_clock> start;
                 std::chrono::time_point<std::chrono::high_resolution_clock> end;
@@ -69,12 +70,18 @@ namespace met {
             }
     };
 
+    /* auto measuring of given scope */
     class ExecTimerAuto {
         private:
             ExecTimer mET;
             string mLabel;
 
         public:
+            explicit ExecTimerAuto(const string& label) : mET(), mLabel(label)
+            {
+                mET.start(mLabel);
+            }
+
             ExecTimerAuto(const string& name, const string& label) : mET(name), mLabel(label) 
             {
                 mET.start(mLabel);
@@ -88,7 +95,9 @@ namespace met {
             ExecTimerAuto(const ExecTimerAuto& eta) = delete;
             ExecTimerAuto& operator=(const ExecTimerAuto& eta) = delete;
     };
+
+#define MET_AUTO_BENCHMARK ExecTimerAuto autoBenchETA(__func__);
+
 }
 
 #endif
-
