@@ -8,6 +8,7 @@
 #ifndef __EXEC_TIMER_H__
 #define __EXEC_TIMER_H__
 
+#include <iomanip>
 #include <fstream>
 #include <map>
 #include <string>
@@ -60,12 +61,16 @@ namespace met {
                 filename.append(".log");
                 ofstream out(filename, std::ios::out | std::ios::trunc);
 
-                out << "Section\t\t\tTime (microseconds)" << std::endl;
-                out << "-------\t\t\t-------------------" << std::endl;
-                
+//                out << "Section\t\t\tTime (microseconds)" << std::endl;
+ //               out << "-------\t\t\t-------------------" << std::endl;
+   
+                out << std::left << std::setw(30) << "Section" << std::setw(20) << "Time (microseconds)" << std::endl;
+                out << std::left << std::setw(30) << "-------" << std::setw(20) << "-------------------" << std::endl;
+
                 for (auto& section : mSections) {
                     auto diff = std::chrono::duration_cast<std::chrono::microseconds> (section.second.end - section.second.start).count();
-                    out << section.first << "\t\t\t" << diff << std::endl;
+             //       out << section.first << "\t\t\t" << diff << std::endl;
+                    out << std::left << std::setw(30) << section.first << std::setw(20) << diff << std::endl;
                 }
             }
     };
