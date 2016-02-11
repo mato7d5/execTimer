@@ -1,9 +1,8 @@
 /*
  * Name: ExecTimer
- * Version: 0.1
  * Description: measures execution time of code. Required C++ 11 compiler at least.
  * License: GNU GPL 2.1
- * Contact: borg@borg.sk
+ * Contact: martin@borg.sk
  */
 
 #ifndef __EXEC_TIMER_H__
@@ -60,12 +59,13 @@ namespace met {
                 string filename(mName);
                 filename.append(".log");
                 ofstream out(filename, std::ios::out | std::ios::trunc);
-                
-                out << "Results:" << std::endl;
+
+                out << "Section\t\t\tTime (microseconds)" << std::endl;
+                out << "-------\t\t\t-------------------" << std::endl;
                 
                 for (auto& section : mSections) {
                     auto diff = std::chrono::duration_cast<std::chrono::microseconds> (section.second.end - section.second.start).count();
-                    out << "\t" << section.first << ": " << diff << " microseconds" << std::endl;
+                    out << section.first << "\t\t\t" << diff << std::endl;
                 }
             }
     };
@@ -96,7 +96,7 @@ namespace met {
             ExecTimerAuto& operator=(const ExecTimerAuto& eta) = delete;
     };
 
-#define MET_AUTO_BENCHMARK ExecTimerAuto autoBenchETA(__func__);
+#define MET_AUTO_BENCHMARK_FUNCTION ExecTimerAuto autoBenchETA(__func__);
 
 }
 
