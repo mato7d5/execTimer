@@ -98,7 +98,12 @@ namespace met {
             ExecTimerAuto& operator=(const ExecTimerAuto& eta) = delete;
     };
 
-#define MET_AUTO_BENCHMARK_FUNCTION ExecTimerAuto autoBenchETA(__func__);
+#define MET_AUTO_BENCHMARK_FUNCTION         ExecTimerAuto autoBenchETA(__func__);
+
+#define MET_BENCHMARK_CREATE(NAME)          ExecTimer NAME(#NAME);
+#define MET_BENCHMARK_START(NAME, SECTION)  NAME.start(#SECTION);
+#define MET_BENCHMARK_STOP(NAME, SECTION)   NAME.stop(#SECTION);
+#define MET_BENCHMARK_PRINT(NAME)           NAME.print();
 
 }
 
