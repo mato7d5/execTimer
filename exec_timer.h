@@ -105,6 +105,7 @@ namespace met {
             string mLabel;
         public:
             ExecTimerScope(ExecTimer& et, const string& label) : mEt(et), mLabel(label) { mEt.start(mLabel); }
+            ExecTimerScope(ExecTimer& et, const string& label, const int idx) : mEt(et), mLabel(label + std::to_string(idx)) { mEt.start(mLabel); }
             ~ExecTimerScope() { mEt.stop(mLabel); }
     };
 }
@@ -116,5 +117,8 @@ namespace met {
 #define MET_BENCHMARK_STOP(NAME, SECTION)   NAME.stop(#SECTION);
 #define MET_BENCHMARK_PRINT(NAME)           NAME.print();
 #define MET_BENCHMARK_SCOPE(NAME, SECTION)  met::ExecTimerScope scopedEt(NAME, #SECTION);  
+#define MET_BENCHMARK_LOOP(NAME, SECTION)   static int SECTION##_idx = 0; \
+                                            met::ExecTimerScope SECTION##_scopedEt(NAME, #SECTION, SECTION##_idx); \
+                                            ++SECTION##_idx; \
 
 #endif

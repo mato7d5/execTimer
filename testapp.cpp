@@ -15,7 +15,7 @@ void func2() {
     MET_BENCHMARK_START(FUNC2, section1);
 
      for (int i = 0; i < 5; ++i) {
-        MET_BENCHMARK_SCOPE(FUNC2, i)
+        MET_BENCHMARK_LOOP(FUNC2, LOOP)
         sleep(1);
     }
 
