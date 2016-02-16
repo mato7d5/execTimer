@@ -37,13 +37,41 @@ void foo() {
 }
 ```
 
-## MET_AUTO_BENCHMARK
+## MET_AUTO_BENCHMARK_FUCTION
 Macro for wrapping ExecTimerAuto.
 Sample:
 ```
 void foo() {
-    met::MET_AUTO_BENCHMARK
+    MET_AUTO_BENCHMARK_FUCTION
     ...
     ...
+}
+```
+
+## MET_BENCHMARK macros
+Helper macros.
+Sample
+```
+void func() {
+    MET_BENCHMARK_CREATE(MyBenchmark)
+    ...
+    {
+        MET_BENCHMARK_START(MyBenchmark, Scope1)
+        ...
+        MET_BENCHMARK_STOP(MyBenchmark, Scope1)
+    }
+    ...
+    {
+        //scope 2
+        MET_BENCHMARK_SCOPE(MyBenchmark, Scope2)
+        ...
+    }
+
+    for (int i = 0; i < size(); ++i) {
+        MET_BENCHMARK_LOOP(MyBenchmark, Iter_)
+        ...
+    }
+
+    MET_BENCHMARK_PRINT(MyBenchmark)
 }
 ```
