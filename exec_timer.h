@@ -59,11 +59,20 @@ namespace met {
             void print() {
                 string filename(mName);
                 filename.append(".log");
-                ofstream out(filename, std::ios::out | std::ios::trunc);
+                
+                auto outputExists = [] (const string& name) -> bool {
+                    ifstream f(name);
+                    return f.good();
+                }
 
-   
-                out << std::left << std::setw(30) << "Section" << std::setw(20) << "Time (microseconds)" << std::endl;
-                out << std::left << std::setw(30) << "-------" << std::setw(20) << "-------------------" << std::endl;
+                bool exists = outputExists(mName));
+
+                ofstream out(filename, std::ios::out | std::ios::ate);
+
+                if (!exists) {
+                    out << std::left << std::setw(30) << "Section" << std::setw(20) << "Time (microseconds)" << std::endl;
+                    out << std::left << std::setw(30) << "-------" << std::setw(20) << "-------------------" << std::endl;
+                }
 
                 for (auto& section : mSections) {
                     auto diff = std::chrono::duration_cast<std::chrono::microseconds> (section.second.end - section.second.start).count();
