@@ -18,6 +18,11 @@ using std::string;
 using std::map;
 using std::ofstream;
 
+// msvc __func__ fix
+#ifndef __func__
+#define __func__ __FUNCTION__
+#endif
+
 namespace met {
     /* Main class for measuring time of executed code */
     class ExecTimer {
