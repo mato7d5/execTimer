@@ -63,9 +63,9 @@ namespace met {
                 auto outputExists = [] (const string& name) -> bool {
                     ifstream f(name);
                     return f.good();
-                }
+                };
 
-                bool exists = outputExists(mName));
+                bool exists = outputExists(mName);
 
                 ofstream out(filename, std::ios::out | std::ios::ate);
 
