@@ -37,12 +37,12 @@ void foo() {
 }
 ```
 
-## MET_AUTO_BENCHMARK_FUCTION
+## MET_AUTO_BENCHMARK_FUNCTION
 Macro for wrapping ExecTimerAuto.
 Sample:
 ```
 void foo() {
-    MET_AUTO_BENCHMARK_FUCTION
+    MET_AUTO_BENCHMARK_FUNCTION
     ...
     ...
 }
