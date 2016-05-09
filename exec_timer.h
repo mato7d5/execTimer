@@ -17,6 +17,7 @@
 using std::string;
 using std::map;
 using std::ofstream;
+using std::ifstream;
 
 // msvc __func__ fix
 #ifndef __func__
