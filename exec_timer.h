@@ -8,6 +8,7 @@
 #ifndef __EXEC_TIMER_H__
 #define __EXEC_TIMER_H__
 
+#include <iostream>
 #include <iomanip>
 #include <fstream>
 #include <map>
@@ -63,6 +64,16 @@ namespace met {
             }
 
             void print() {
+                std::cout << std::left << std::setw(30) << "Section" << std::setw(20) << "Time (microseconds)" << std::endl;
+                std::cout << std::left << std::setw(30) << "-------" << std::setw(20) << "-------------------" << std::endl;
+                
+                for (auto& section : mSections) {
+                    auto diff = std::chrono::duration_cast<std::chrono::microseconds> (section.second.end - section.second.start).count();
+                    std::cout << std::left << std::setw(30) << section.first << std::setw(20) << diff << std::endl;
+                }
+            }
+
+            void save() {
                 string filename(mName);
                 filename.append(".log");
                 
@@ -131,6 +142,7 @@ namespace met {
 #define MET_BENCHMARK_START(NAME, SECTION)  NAME.start(#SECTION);
 #define MET_BENCHMARK_STOP(NAME, SECTION)   NAME.stop(#SECTION);
 #define MET_BENCHMARK_PRINT(NAME)           NAME.print();
+#define MET_BENCHMARK_SAVE(NAME)            NAME.save();
 #define MET_BENCHMARK_SCOPE(NAME, SECTION)  met::ExecTimerScope scopedEt(NAME, #SECTION);  
 #define MET_BENCHMARK_LOOP(NAME, SECTION)   static int SECTION##_idx = 0; \
                                             met::ExecTimerScope SECTION##_scopedEt(NAME, #SECTION, SECTION##_idx); \

@@ -21,6 +21,7 @@ void func2() {
 
     MET_BENCHMARK_STOP(FUNC2, section1)
     MET_BENCHMARK_PRINT(FUNC2)
+    MET_BENCHMARK_SAVE(FUNC2)
 }
 
 int main() {
