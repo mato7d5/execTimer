@@ -2,7 +2,7 @@
  * Name: ExecTimer
  * Description: measures execution time of code. Required C++ 11 compiler at least.
  * License: GNU GPL 2.1
- * Contact: martin@borg.sk
+ * Contact: mmancuska@gmail.com
  */
 
 #ifndef __EXEC_TIMER_H__
