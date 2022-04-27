@@ -103,9 +103,10 @@ namespace met {
         private:
             ExecTimer mET;
             string mLabel;
+            bool mSave {false};
 
         public:
-            explicit ExecTimerAuto(const string& label) : mET(), mLabel(label)
+            explicit ExecTimerAuto(const string& label, bool save = false) : mET(label), mLabel(label), mSave (save)
             {
                 mET.start(mLabel);
             }
@@ -117,7 +118,11 @@ namespace met {
             
             ~ExecTimerAuto() {
                 mET.stop(mLabel);
-                mET.print();
+
+                if (mSave)
+                    mET.save();
+                else
+                    mET.print();
             }
 
             ExecTimerAuto(const ExecTimerAuto& eta) = delete;
@@ -137,6 +142,7 @@ namespace met {
 }
 
 #define MET_AUTO_BENCHMARK_FUNCTION         met::ExecTimerAuto autoBenchETA(__func__);
+#define MET_AUTO_BENCHMARK_FUNCTION_SAVE    met::ExecTimerAuto autoBenchETA(__func__, true);
 
 #define MET_BENCHMARK_CREATE(NAME)          met::ExecTimer NAME(#NAME);
 #define MET_BENCHMARK_START(NAME, SECTION)  NAME.start(#SECTION);
