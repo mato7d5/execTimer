@@ -14,6 +14,7 @@
 #include <map>
 #include <string>
 #include <chrono>
+#include <algorithm>
 
 using std::string;
 using std::map;
@@ -76,6 +77,13 @@ namespace met {
             void save() {
                 string filename(mName);
                 filename.append(".log");
+
+                std::replace_if(filename.begin(), filename.end(), [](const auto& c) {
+                    if (c == ':')
+                        return true;
+
+                    return false;
+                }, '_');
                 
                 auto outputExists = [] (const string& name) -> bool {
                     ifstream f(name);
